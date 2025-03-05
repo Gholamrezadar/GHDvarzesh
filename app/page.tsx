@@ -13,8 +13,8 @@ import {
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-center h-dvh w-dvw">
-      <div className="flex mt-8 mb-8">
+    <div className="flex flex-col items-center h-dvh w-dvw select-none">
+      <div className="flex mt-8 mb-4">
         {/* shadcn ui select */}
         <Select dir="rtl" defaultValue="laliga" >
           <SelectTrigger className="bg-transparent text-white border-none ring-0 outline-none active:ring-0 focus:ring-0 focus:outline-none text-xl">
@@ -30,8 +30,8 @@ export default function Home() {
 
       {/* Pills: Goal/Assist mode selection */}
       <div className="flex flex-row-reverse gap-3">
-        <div className="rounded-full cursor-pointer w-24 py-1 text-center bg-[#7AD39E] text-black text-sm">گل</div>
-        <div className="rounded-full cursor-pointer w-24 py-1 text-center bg-[#212A25] text-[#61A27B] text-sm">پاس‌گل</div>
+        <div className="rounded-full cursor-pointer w-28 py-2 text-center bg-[#7AD39E] text-black text-sm">گل</div>
+        <div className="rounded-full cursor-pointer w-28 py-2 text-center bg-[#212A25] text-[#61A27B] text-sm">پاس‌گل</div>
 
       </div>
 
@@ -66,7 +66,7 @@ export default function Home() {
 
       {/* Nav Button */}
       <div className="fixed right-0 bottom-0 m-12 z-10">
-        <div className="flex bg-[#7AD39E] rounded-full px-8 py-4 text-black text-sm big-green-glow">
+        <div className="flex bg-[#7AD39E] rounded-full px-8 py-4 text-black text-sm big-green-glow cursor-pointer">
           برترین‌ها
         </div>
       </div>

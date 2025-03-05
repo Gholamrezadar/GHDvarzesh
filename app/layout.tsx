@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Vazirmatn} from "next/font/google";
 import "./globals.css";
+import Head from "next/head";
 
 const vazirmatn = Vazirmatn({
   variable: "--font-vazirmatn",
@@ -19,6 +20,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+      </Head>
       <body
         className={`${vazirmatn.variable} antialiased`}
       >
