@@ -13,7 +13,7 @@ import {
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-center h-screen w-screen">
+    <div className="flex flex-col items-center h-dvh w-dvw">
       <div className="flex mt-8 mb-8">
         {/* shadcn ui select */}
         <Select dir="rtl" defaultValue="laliga" >
