@@ -159,7 +159,7 @@ import { useEffect, useState } from "react";
 // ];
 
 
-export function Spinner() {
+function Spinner() {
   return (
    <div className="flex justify-center items-center h-full w-full">
    <div className="absolute w-12 h-12 border-4 border-t-transparent border-[#7AD39E] rounded-full animate-spin "></div>
