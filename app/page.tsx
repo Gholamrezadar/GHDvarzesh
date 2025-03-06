@@ -187,7 +187,7 @@ export default function Home() {
   const [navOption3, setNavOption3] = useState<NavOption>("جدول لیگ‌ها");
 
   return (
-    <div className="flex flex-col items-center h-dvh w-dvw select-none">
+    <div className="flex flex-col items-center justify-center h-dvh w-dvw max-w-3xl mx-auto select-none">
 
       {/* Routing */}
       {navOptionActive === "برترین‌ها" && <BestPlayers />}
