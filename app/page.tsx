@@ -166,7 +166,7 @@ function Spinner() {
     // wait for 120ms before showing the spinner to avoid flashing
     const timer = setTimeout(() => setVisible(true), 120);
     return () => clearTimeout(timer); // Cleanup on unmount
-  }, []);
+  });
 
   return (
     <div className={`flex justify-center items-center h-full w-full ${visible ? "opacity-100" : "opacity-0"}`}>
@@ -182,13 +182,19 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
 
   function handleOptionChange(option: string) {
+    if(option === selectedOption) {
+      return;
+    }
     setLoading(true);
     setSelectedOption(option);
   }
 
-  function handleModeChange(mode: "Goal" | "Assist") {
+  function handleModeChange(newMode: "Goal" | "Assist") {
+    if (mode === newMode) {
+      return;
+    }
     setLoading(true);
-    setMode(mode);
+    setMode(newMode);
   }
 
   useEffect(() => {
