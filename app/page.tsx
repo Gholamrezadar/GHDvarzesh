@@ -227,7 +227,7 @@ export default function Home() {
           <SelectTrigger className="bg-transparent text-white border-none ring-0 outline-none active:ring-0 focus:ring-0 focus:outline-none text-xl">
             <SelectValue className="focus:ring-0 focus:outline-none"></SelectValue>
           </SelectTrigger>
-          <SelectContent className="outline-none focus:ring-0 focus:outline-none">
+          <SelectContent className="outline-none focus:ring-0 focus:outline-none border-0 text-white bg-[#161a18]">
             <SelectItem value="laliga">لالیگای اسپانیا</SelectItem>
             <SelectItem value="ucl">لیگ قهرمانان اروپا</SelectItem>
             <SelectItem value="prem">لیگ برتر انگلیس</SelectItem>
