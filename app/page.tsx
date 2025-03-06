@@ -159,16 +159,29 @@ import { useEffect, useState } from "react";
 // ];
 
 
+export function Spinner() {
+  return (
+   <div className="flex justify-center items-center h-full w-full">
+   <div className="absolute w-12 h-12 border-4 border-t-transparent border-[#7AD39E] rounded-full animate-spin "></div>
+   {/* <div className="absolute w-8 h-8 border-4 border-b-transparent border-[#7AD39E] rounded-full animate-spin "></div> */}
+   {/* <div className="absolute w-4 h-4 border-4 border-l-transparent border-[#7AD39E] rounded-full animate-spin "></div> */}
+   </div> 
+  );
+}
+
 export default function Home() {
   const [mode, setMode] = useState<"Goal" | "Assist">("Goal");
   const [playersList, setPlayersList] = useState<PlayerItemInterface[]>([]);
   const [selectedOption, setSelectedOption] = useState<string>("laliga");
+  const [loading, setLoading] = useState(true);
 
   function handleOptionChange(option: string) {
+    setLoading(true);
     setSelectedOption(option);
   }
 
   function handleModeChange(mode: "Goal" | "Assist") {
+    setLoading(true);
     setMode(mode);
   }
 
@@ -177,6 +190,7 @@ export default function Home() {
       const data = await getTopPlayers(selectedOption, mode);
       const players = convertToPlayerItem(data);
       setPlayersList(players);
+      setLoading(false);
     }
     getPlayers();
   }, [selectedOption, mode]);
@@ -230,8 +244,9 @@ export default function Home() {
 
       {/* scrollable list */}
       <div className="overflow-y-auto h-full w-full mt-8">
+        {loading && <Spinner />}
         {
-          playersList.map((player, i) => (
+          !loading && playersList.map((player, i) => (
             <PlayerItem key={i.toString() + player.name} name={player.name} team={player.team} number={player.number} medal={getMedal(i)} pic={player.pic} />
           )
           )
