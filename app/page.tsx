@@ -1,5 +1,6 @@
 'use client'
 
+import NavButton from "@/components/nav_button";
 import PlayerItem, { PlayerItemInterface } from "@/components/player_item";
 import {
   Select,
@@ -175,14 +176,21 @@ function Spinner() {
   );
 }
 
+type NavOption = "برترین‌ها" | "ویدیو" | "برنامه بازی‌ها" | "جدول لیگ‌ها";
+
 export default function Home() {
   const [mode, setMode] = useState<"Goal" | "Assist">("Goal");
   const [playersList, setPlayersList] = useState<PlayerItemInterface[]>([]);
   const [selectedOption, setSelectedOption] = useState<string>("laliga");
   const [loading, setLoading] = useState(true);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [navOptionActive, setNavOptionActive] = useState<NavOption>("برترین‌ها");
+  const [navOption1, setNavOption1] = useState<NavOption>("ویدیو");
+  const [navOption2, setNavOption2] = useState<NavOption>("برنامه بازی‌ها");
+  const [navOption3, setNavOption3] = useState<NavOption>("جدول لیگ‌ها");
 
   function handleOptionChange(option: string) {
-    if(option === selectedOption) {
+    if (option === selectedOption) {
       return;
     }
     setLoading(true);
@@ -273,18 +281,12 @@ export default function Home() {
           </div>
         )}
       </div>
-
-
+      
       {/* Nav Button */}
-      <div className="fixed right-0 bottom-0 m-12 z-10">
-        <div className="flex bg-[#7AD39E] rounded-full px-8 py-4 text-black text-sm big-green-glow cursor-pointer">
-          برترین‌ها
-        </div>
-      </div>
+      <NavButton active={navOptionActive} option1={navOption1} option2={navOption2} option3={navOption3} menuOpen={menuOpen} setMenuOpen={setMenuOpen} setNavOption1={setNavOption1} setNavOption2={setNavOption2} setNavOption3={setNavOption3} setNavOptionActive={setNavOptionActive} />
 
       {/* Black Gradient from bottom to 2/3 of the screen */}
       <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-b from-[#00000000] to-[#000000FF] pointer-events-none"></div>
-
 
     </div>
   );
