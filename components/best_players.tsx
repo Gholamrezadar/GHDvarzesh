@@ -51,7 +51,7 @@ export default function BestPlayers() {
             <div className="flex mt-8 mb-4">
                 {/* shadcn ui select */}
                 <Select dir="rtl" defaultValue="laliga" value={selectedOption} onValueChange={handleOptionChange}>
-                    <SelectTrigger className="bg-transparent text-white border-none ring-0 outline-none active:ring-0 focus:ring-0 focus:outline-none text-xl">
+                    <SelectTrigger className="bg-transparent text-white border-none ring-0 outline-none active:ring-0 focus:ring-0 focus:outline-none text-2xl">
                         <SelectValue className="focus:ring-0 focus:outline-none"></SelectValue>
                     </SelectTrigger>
                     <SelectContent className="outline-none focus:ring-0 focus:outline-none border-0 text-white bg-[#161a18]">
