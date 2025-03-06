@@ -160,12 +160,18 @@ import { useEffect, useState } from "react";
 
 
 function Spinner() {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    // wait for 120ms before showing the spinner to avoid flashing
+    const timer = setTimeout(() => setVisible(true), 120);
+    return () => clearTimeout(timer); // Cleanup on unmount
+  }, []);
+
   return (
-   <div className="flex justify-center items-center h-full w-full">
-   <div className="absolute w-12 h-12 border-4 border-t-transparent border-[#7AD39E] rounded-full animate-spin "></div>
-   {/* <div className="absolute w-8 h-8 border-4 border-b-transparent border-[#7AD39E] rounded-full animate-spin "></div> */}
-   {/* <div className="absolute w-4 h-4 border-4 border-l-transparent border-[#7AD39E] rounded-full animate-spin "></div> */}
-   </div> 
+    <div className={`flex justify-center items-center h-full w-full ${visible ? "opacity-100" : "opacity-0"}`}>
+      <div className="absolute w-12 h-12 border-4 border-t-transparent border-[#7AD39E] rounded-full animate-spin "></div>
+    </div>
   );
 }
 
@@ -244,13 +250,22 @@ export default function Home() {
 
       {/* scrollable list */}
       <div className="overflow-y-auto h-full w-full mt-8">
+        {/* Spinner */}
         {loading && <Spinner />}
+
+        {/* Players */}
         {
           !loading && playersList.map((player, i) => (
             <PlayerItem key={i.toString() + player.name} name={player.name} team={player.team} number={player.number} medal={getMedal(i)} pic={player.pic} />
           )
           )
         }
+
+        {/* empty space to move the last player higher */}
+        {!loading && (
+          <div className="w-full h-24">
+          </div>
+        )}
       </div>
 
 
