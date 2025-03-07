@@ -68,7 +68,7 @@ export default function VideoPage() {
                         {/* Video Card */}
                         <div className="">
                             <div className="flex flex-col items-center justify-center h-full">
-                                <a href="#">
+                                <a href={video.url}>
                                     <img src={video.cover} className="w-full h-full rounded-xl shadow-lg" />
                                     <div className="text-center text-white text-md mt-2 mb-8 flex flex-row-reverse gap-2 items-center justify-center">
                                         <div className="text-center text-white">{video.title}</div>
