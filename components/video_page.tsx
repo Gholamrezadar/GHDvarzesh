@@ -8,7 +8,7 @@ export default function VideoPage() {
     const [videos, setVideos] = useState<VideoItemInterface[]>([]);
     const [loading, setLoading] = useState(true);
     const [loading2, setLoading2] = useState(true);
-    const [minViews, setMinViews] = useState(10);
+    const [minViews, setMinViews] = useState(50);
     const [data, setData] = useState<any>([]);
 
     useEffect(() => {
