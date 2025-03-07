@@ -34,6 +34,47 @@ export async function getLatestMatches() {
     return data;
 }
 
+export async function getLeagueStandings(league: string) {
+    const laligaUrl = "https://web-api.varzesh3.com/v1.0/football/widgets/84/league/902614";
+    const premUrl = "https://web-api.varzesh3.com/v1.0/football/widgets/84/league/902613";
+    const serieaUrl = "https://web-api.varzesh3.com/v1.0/football/widgets/84/league/902645";
+
+    let url;
+    if (league === "laliga") {
+        url = laligaUrl;
+    } else if (league === "prem") {
+        url = premUrl;
+    } else if (league === "seriea") {
+        url = serieaUrl;
+    }
+
+    const response = await fetch(url);
+    const data = await response.json();
+    return data;
+}
+
+export interface LeagueItemInterface {
+    name: string;
+    played: number;
+    points: number;
+    goalDiff: number;
+    rank: number;
+}
+
+export function convertToLeagueItem(data: any): LeagueItemInterface[] {
+    const leagues: LeagueItemInterface[] = [];
+
+    for (let row of data.standing.teams) {
+        leagues.push({
+            name: row.name,
+            rank: row.rank,
+            played: row.played,
+            goalDiff: row.goalDifference,
+            points: row.points,
+        })
+    }
+    return leagues;
+}
 
 export interface VideoItemInterface {
     title: string;
@@ -49,10 +90,14 @@ function cleanString(str: string) {
     }
 
     // Find the position of '(' and remove everything from there
-    const parenIndex = str.indexOf("(");
-    if (parenIndex !== -1) {
-        str = str.slice(0, parenIndex).trim();
-    }
+    // const parenIndex = str.indexOf("(");
+    // if (parenIndex !== -1) {
+    //     str = str.slice(0, parenIndex).trim();
+    // }
+
+    // remove a string from another string
+    str = str.replace("(گزارش اختصاصی)", "");
+    str = str.replace("گزارش اختصاصی", "");
 
     return str;
 }
@@ -96,4 +141,10 @@ export function convertToPlayerItem(data: any): PlayerItemInterface[] {
         }
     }
     return players;
+}
+
+
+export async function getTodaysMatches() {
+    const url = "https://web-api.varzesh3.com/v1.0/football/widgets/115/todays-matches/900795";
+    
 }
