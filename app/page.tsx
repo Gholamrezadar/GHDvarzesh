@@ -1,8 +1,11 @@
 'use client'
 
 import BestPlayers from "@/components/best_players";
+import LeaguesPage from "@/components/leagues_page";
+import MatchesPage from "@/components/matches_page";
 import NavButton from "@/components/nav_button";
 import Spinner from "@/components/spinner";
+import VideoPage from "@/components/video_page";
 import { useEffect, useState } from "react";
 
 // const fakeDataGoal: PlayerItemInterface[] = [
@@ -149,33 +152,7 @@ import { useEffect, useState } from "react";
 //   },
 // ];
 
-
 type NavOption = "برترین‌ها" | "ویدیو" | "برنامه بازی‌ها" | "جدول لیگ‌ها";
-
-function VideoPage() {
-  return (
-    <div className="flex justify-center items-center bg-red-500 w-full h-full">
-      Video page
-    </div>
-  )
-}
-
-function LeaguesPage() {
-  return (
-    <div className="flex justify-center items-center bg-blue-500 w-full h-full">
-      Leagues Page
-    </div>
-  )
-}
-
-function MatchesPage() {
-  return (
-    <div className="flex justify-center items-center bg-green-500 w-full h-full">
-      Matches Page
-    </div>
-  )
-}
-
 
 
 export default function Home() {

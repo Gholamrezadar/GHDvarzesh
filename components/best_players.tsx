@@ -82,7 +82,7 @@ export default function BestPlayers() {
             </div>
 
             {/* scrollable list */}
-            <div className="overflow-y-auto h-full w-full mt-8">
+            <div className="overflow-y-auto h-full w-full mt-8 no-scrollbar">
                 {/* Spinner */}
                 {loading && <Spinner />}
 
