@@ -145,6 +145,38 @@ export function convertToPlayerItem(data: any): PlayerItemInterface[] {
 
 
 export async function getTodaysMatches() {
-    const url = "https://web-api.varzesh3.com/v1.0/football/widgets/115/todays-matches/900795";
-    
+    // const url = "https://web-api.varzesh3.com/v2.0/livescore/today"
+    const url = "/api/today_matches"
+    const response = await fetch(url);
+    const data = await response.json();
+    return data;
+}
+
+export interface MatchItemInterface {
+    league: string;
+    date: string;
+    time: string;
+    host: string;
+    guest: string;
+}
+
+export function convertToMatchItem(data: any): MatchItemInterface[] {
+    const matches: MatchItemInterface[] = [];
+
+    for (let row of data) {
+        const leagueName = row.title;
+        const date = row.dates[0].date;
+        for(let match of row.dates[0].matches) {
+            matches.push({
+                league: leagueName,
+                date: date,
+                time: match.time,
+                host: match.host.name,
+                guest: match.guest.name,
+            })
+        }
+    }
+
+
+    return matches;
 }
