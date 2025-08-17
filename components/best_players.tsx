@@ -58,6 +58,8 @@ export default function BestPlayers() {
                         <SelectItem value="laliga">لالیگای اسپانیا</SelectItem>
                         <SelectItem value="ucl">لیگ قهرمانان اروپا</SelectItem>
                         <SelectItem value="prem">لیگ برتر انگلیس</SelectItem>
+                        <SelectItem value="seriea">سری آ ایتالیا</SelectItem>
+                        <SelectItem value="league1">لیگ ۱ فرانسه</SelectItem>
                     </SelectContent>
                 </Select>
             </div>

@@ -3,15 +3,21 @@ import { PlayerItemInterface } from "@/components/player_item";
 export async function getTopPlayers(league: string, mode: "Goal" | "Assist") {
     // a map of league names to api urls
     const leagueGoalMap = {
-        "laliga": "https://web-api.varzesh3.com/v1.0/football/widgets/115/top-scorers/900795",
-        "prem": "https://web-api.varzesh3.com/v1.0/football/widgets/115/top-scorers/900794",
+        "laliga": "https://web-api.varzesh3.com/v1.0/football/widgets/115/top-scorers/900921",
+        "prem": "https://web-api.varzesh3.com/v1.0/football/widgets/115/top-scorers/900911",
+        "league1": "https://web-api.varzesh3.com/v1.0/football/widgets/115/top-scorers/900913",
         "ucl": "https://web-api.varzesh3.com/v1.0/football/widgets/115/top-scorers/900825",
+        "seria": "https://web-api.varzesh3.com/v1.0/football/widgets/115/top-scorers/900825",
+        "bundesliga": "https://web-api.varzesh3.com/v1.0/football/widgets/115/top-scorers/900913",
     };
 
     const leagueAssistMap = {
-        "laliga": "https://web-api.varzesh3.com/v1.0/football/widgets/115/top-assisters/900795",
-        "prem": "https://web-api.varzesh3.com/v1.0/football/widgets/115/top-assisters/900794",
+        "laliga": "https://web-api.varzesh3.com/v1.0/football/widgets/115/top-assisters/900921",
+        "prem": "https://web-api.varzesh3.com/v1.0/football/widgets/115/top-assisters/900911",
+        "league1": "https://web-api.varzesh3.com/v1.0/football/widgets/115/top-assisters/900913",
         "ucl": "https://web-api.varzesh3.com/v1.0/football/widgets/115/top-assisters/900825",
+        "seriea": "https://web-api.varzesh3.com/v1.0/football/widgets/115/top-assisters/900825",
+        "bundesliga": "https://web-api.varzesh3.com/v1.0/football/widgets/115/top-scorers/900913",
     };
 
     const url = mode === "Goal" ? leagueGoalMap[league] : leagueAssistMap[league];
@@ -29,14 +35,14 @@ export async function getLatestVideos() {
 }
 
 export async function getLatestMatches() {
-    const response = await fetch("https://web-api.varzesh3.com/v1.0/football/widgets/115/latest-matches/900795");
+    const response = await fetch("https://web-api.varzesh3.com/v1.0/football/widgets/115/latest-matches/900921");
     const data = await response.json();
     return data;
 }
 
 export async function getLeagueStandings(league: string) {
-    const laligaUrl = "https://web-api.varzesh3.com/v1.0/football/widgets/84/league/902614";
-    const premUrl = "https://web-api.varzesh3.com/v1.0/football/widgets/84/league/902613";
+    const laligaUrl = "https://web-api.varzesh3.com/v1.0/football/widgets/84/league/902965";
+    const premUrl = "https://web-api.varzesh3.com/v1.0/football/widgets/84/league/902953";
     const serieaUrl = "https://web-api.varzesh3.com/v1.0/football/widgets/84/league/902645";
 
     let url;
