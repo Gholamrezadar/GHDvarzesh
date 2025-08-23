@@ -159,10 +159,10 @@ type NavOption = "برترین‌ها" | "ویدیو" | "برنامه بازی�
 export default function Home() {
 
   
-  const searchParams = useSearchParams();
-  const router = useRouter();
+  // const searchParams = useSearchParams();
+  // const router = useRouter();
 
-  const tab = searchParams.get("tab");
+  // const tab = searchParams.get("tab");
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [navOptionActive, setNavOptionActive] = useState<NavOption>("برترین‌ها");
@@ -171,12 +171,12 @@ export default function Home() {
   const [navOption3, setNavOption3] = useState<NavOption>("جدول لیگ‌ها");
 
   // Sync URL -> state
-  useEffect(() => {
+  // useEffect(() => {
     // if (tab === "video") setNavOptionActive("ویدیو");
     // else if (tab === "matches") setNavOptionActive("برنامه بازی‌ها");
     // else if (tab === "leagues") setNavOptionActive("جدول لیگ‌ها");
     // else setNavOptionActive("برترین‌ها");
-  }, [tab]);
+  // }, [tab]);
 
   // When switching tabs, push new URL
   const changeTab = (option: NavOption) => {
