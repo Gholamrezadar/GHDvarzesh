@@ -1,4 +1,5 @@
-export default function NavButton({ active, option1, option2, option3, menuOpen, setMenuOpen, setNavOptionActive, setNavOption1, setNavOption2, setNavOption3 }: {
+export default function NavButton({ changeTab, active, option1, option2, option3, menuOpen, setMenuOpen, setNavOptionActive, setNavOption1, setNavOption2, setNavOption3 }: {
+    changeTab: React.Dispatch<React.SetStateAction<string>>;
     active: string;
     option1: string;
     option2: string;
@@ -11,7 +12,8 @@ export default function NavButton({ active, option1, option2, option3, menuOpen,
     setNavOption3: React.Dispatch<React.SetStateAction<string>>;
 }) {
     function handleOption1() {
-        setNavOptionActive(option1); 
+        setNavOptionActive(option1);
+        changeTab(option1);
         if(option1 === "برترین‌ها"){
             setNavOption1("ویدیو");
             setNavOption2("برنامه بازی‌ها");
@@ -34,6 +36,7 @@ export default function NavButton({ active, option1, option2, option3, menuOpen,
 
     function handleOption2() {
         setNavOptionActive(option2);
+        changeTab(option2);
         if(option2 === "ویدیو"){
             setNavOption1("برترین‌ها");
             setNavOption2("برنامه بازی‌ها");
@@ -55,7 +58,8 @@ export default function NavButton({ active, option1, option2, option3, menuOpen,
     }
 
     function handleOption3() {
-        setNavOptionActive(option3); 
+        setNavOptionActive(option3);
+        changeTab(option3);
         if(option3 === "برنامه بازی‌ها"){
             setNavOption1("برترین‌ها");
             setNavOption2("ویدیو");

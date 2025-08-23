@@ -5,7 +5,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 import Spinner from "./spinner";
 
 export default function BestPlayers() {
-    const [mode, setMode] = useState<"Goal" | "Assist">("Goal");
+    const [mode, setMode] = useState<"Goal" | "Assist" | "GA">("Goal");
     const [playersList, setPlayersList] = useState<PlayerItemInterface[]>([]);
     const [selectedOption, setSelectedOption] = useState<string>("laliga");
     const [loading, setLoading] = useState(true);
@@ -17,7 +17,7 @@ export default function BestPlayers() {
         setSelectedOption(option);
     }
 
-    function handleModeChange(newMode: "Goal" | "Assist") {
+    function handleModeChange(newMode: "Goal" | "Assist" | "GA") {
         if (mode === newMode) {
             return;
         }
@@ -60,6 +60,7 @@ export default function BestPlayers() {
                         <SelectItem value="prem">لیگ برتر انگلیس</SelectItem>
                         <SelectItem value="seriea">سری آ ایتالیا</SelectItem>
                         <SelectItem value="league1">لیگ ۱ فرانسه</SelectItem>
+                        <SelectItem value="bundesliga">بوندسلیگای آلمان</SelectItem>
                     </SelectContent>
                 </Select>
             </div>
@@ -72,14 +73,33 @@ export default function BestPlayers() {
                         <>
                             <div className="rounded-full cursor-pointer w-28 py-2 text-center bg-[#7AD39E] text-black text-sm" onClick={() => handleModeChange("Goal")}>گل</div>
                             <div className="rounded-full cursor-pointer w-28 py-2 text-center bg-[#212A25] text-[#61A27B] text-sm" onClick={() => handleModeChange("Assist")}>پاس‌گل</div>
+                            <div className="rounded-full cursor-pointer w-28 py-2 text-center bg-[#212A25] text-[#61A27B] text-sm" onClick={() => handleModeChange("GA")}>GA</div>
                         </>
                     ) :
+                    (<></>)}
+
+
+                {mode === "Assist" ?
+                    
                     (
                         <>
-                            <div className="rounded-full cursor-pointer w-28 py-2 text-center bg-[#212A25] text-[#61A27B] text-sm" onClick={() => handleModeChange("Goal")}>گل</div>
-                            <div className="rounded-full cursor-pointer w-28 py-2 text-center bg-[#7AD39E] text-black text-sm" onClick={() => handleModeChange("Assist")}>پاس‌گل</div>
+                        <div className="rounded-full cursor-pointer w-28 py-2 text-center bg-[#212A25] text-[#61A27B] text-sm" onClick={() => handleModeChange("Goal")}>گل</div>
+                        <div className="rounded-full cursor-pointer w-28 py-2 text-center bg-[#7AD39E] text-black text-sm" onClick={() => handleModeChange("Assist")}>پاس‌گل</div>
+                        <div className="rounded-full cursor-pointer w-28 py-2 text-center bg-[#212A25] text-[#61A27B] text-sm" onClick={() => handleModeChange("GA")}>GA</div>
                         </>
-                    )}
+                    ):
+                    (<></>)}
+                
+                {mode === "GA" ?
+                    
+                    (
+                        <>
+                        <div className="rounded-full cursor-pointer w-28 py-2 text-center bg-[#212A25] text-[#61A27B] text-sm" onClick={() => handleModeChange("Goal")}>گل</div>
+                        <div className="rounded-full cursor-pointer w-28 py-2 text-center bg-[#212A25] text-[#61A27B] text-sm" onClick={() => handleModeChange("Assist")}>پاس‌گل</div>
+                        <div className="rounded-full cursor-pointer w-28 py-2 text-center bg-[#7AD39E] text-black text-sm" onClick={() => handleModeChange("GA")}>GA</div>
+                        </>
+                    ):
+                    (<></>)}
 
             </div>
 

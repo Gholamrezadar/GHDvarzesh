@@ -1,5 +1,14 @@
 import { PlayerItemInterface } from "@/components/player_item";
 
+export async function getTopPlayersNew(league: string, mode: "Goal" | "Assist" | "GA") {
+    const url = "https://web-api.varzesh3.com/v2.0/football/leagues/3/seasons/900911/stats/players/advanced/assists";
+
+    const response = await fetch(url);
+    const data = await response.json();
+
+    return data;
+}
+
 export async function getTopPlayers(league: string, mode: "Goal" | "Assist" | "GA") {
     // use this later, it has goals, assists, ga, and other stats for a league in one request and is more complete
     // https://web-api.varzesh3.com/v2.0/football/leagues/3/seasons/900911/stats/players/advanced/assists
@@ -151,6 +160,23 @@ export function convertToPlayerItem(data: any): PlayerItemInterface[] {
     return players;
 }
 
+export function convertToPlayerItemNew(data: any): PlayerItemInterface[] {
+    const players: PlayerItemInterface[] = [];
+
+    for (let row of data.topPlayers) {
+        const number = row.goalCount;
+        for (let player of row.players) {
+            players.push({
+                name: player.name,
+                team: player.teamName,
+                number: number,
+                medal: "",
+                pic: player.portrait
+            })
+        }
+    }
+    return players;
+}
 
 export async function getTodaysMatches() {
     // const url = "https://web-api.varzesh3.com/v2.0/livescore/today"

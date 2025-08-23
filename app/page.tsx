@@ -7,6 +7,7 @@ import NavButton from "@/components/nav_button";
 import Spinner from "@/components/spinner";
 import VideoPage from "@/components/video_page";
 import { useEffect, useState } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 
 // const fakeDataGoal: PlayerItemInterface[] = [
 //   {
@@ -157,11 +158,34 @@ type NavOption = "برترین‌ها" | "ویدیو" | "برنامه بازی�
 
 export default function Home() {
 
+  
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
+  const tab = searchParams.get("tab");
+
   const [menuOpen, setMenuOpen] = useState(false);
   const [navOptionActive, setNavOptionActive] = useState<NavOption>("برترین‌ها");
   const [navOption1, setNavOption1] = useState<NavOption>("ویدیو");
   const [navOption2, setNavOption2] = useState<NavOption>("برنامه بازی‌ها");
   const [navOption3, setNavOption3] = useState<NavOption>("جدول لیگ‌ها");
+
+  // Sync URL -> state
+  useEffect(() => {
+    // if (tab === "video") setNavOptionActive("ویدیو");
+    // else if (tab === "matches") setNavOptionActive("برنامه بازی‌ها");
+    // else if (tab === "leagues") setNavOptionActive("جدول لیگ‌ها");
+    // else setNavOptionActive("برترین‌ها");
+  }, [tab]);
+
+  // When switching tabs, push new URL
+  const changeTab = (option: NavOption) => {
+    // setNavOptionActive(option);
+    // if (option === "ویدیو") router.push("/home?tab=video");
+    // else if (option === "برنامه بازی‌ها") router.push("/home?tab=matches");
+    // else if (option === "جدول لیگ‌ها") router.push("/home?tab=leagues");
+    // else router.push("/home");
+  };
 
   return (
     <div className="flex flex-col items-center justify-center h-dvh w-dvw max-w-3xl mx-auto select-none">
@@ -173,7 +197,7 @@ export default function Home() {
       {navOptionActive === "جدول لیگ‌ها" && <LeaguesPage />}
 
       {/* Nav Button */}
-      <NavButton active={navOptionActive} option1={navOption1} option2={navOption2} option3={navOption3} menuOpen={menuOpen} setMenuOpen={setMenuOpen} setNavOption1={setNavOption1} setNavOption2={setNavOption2} setNavOption3={setNavOption3} setNavOptionActive={setNavOptionActive} />
+      <NavButton changeTab={changeTab} active={navOptionActive} option1={navOption1} option2={navOption2} option3={navOption3} menuOpen={menuOpen} setMenuOpen={setMenuOpen} setNavOption1={setNavOption1} setNavOption2={setNavOption2} setNavOption3={setNavOption3} setNavOptionActive={setNavOptionActive} />
 
       {/* Black Gradient from bottom to 2/3 of the screen */}
       <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-b from-[#00000000] to-[#000000FF] pointer-events-none"></div>
