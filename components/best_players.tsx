@@ -3,6 +3,7 @@ import PlayerItem, { PlayerItemInterface } from "./player_item";
 import { convertToPlayerItem, getTopPlayers } from "@/utils/varzesh3";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 import Spinner from "./spinner";
+import { LEAGUE_DISPLAY_NAMES } from "@/utils/varzesh3_constants";
 
 export default function BestPlayers() {
     const [mode, setMode] = useState<"Goal" | "Assist" | "GA">("Goal");
@@ -55,12 +56,12 @@ export default function BestPlayers() {
                         <SelectValue className="focus:ring-0 focus:outline-none"></SelectValue>
                     </SelectTrigger>
                     <SelectContent className="outline-none focus:ring-0 focus:outline-none border-0 text-white bg-[#161a18]">
-                        <SelectItem value="laliga">لالیگای اسپانیا</SelectItem>
-                        <SelectItem value="ucl">لیگ قهرمانان اروپا</SelectItem>
-                        <SelectItem value="prem">لیگ برتر انگلیس</SelectItem>
-                        <SelectItem value="seriea">سری آ ایتالیا</SelectItem>
-                        <SelectItem value="league1">لیگ ۱ فرانسه</SelectItem>
-                        <SelectItem value="bundesliga">بوندسلیگای آلمان</SelectItem>
+                        <SelectItem value="laliga">{LEAGUE_DISPLAY_NAMES.laliga}</SelectItem>
+                        <SelectItem value="ucl">{LEAGUE_DISPLAY_NAMES.ucl}</SelectItem>
+                        <SelectItem value="prem">{LEAGUE_DISPLAY_NAMES.prem}</SelectItem>
+                        <SelectItem value="seriea">{LEAGUE_DISPLAY_NAMES.seriea}</SelectItem>
+                        <SelectItem value="league1">{LEAGUE_DISPLAY_NAMES.league1}</SelectItem>
+                        <SelectItem value="bundesliga">{LEAGUE_DISPLAY_NAMES.bundesliga}</SelectItem>
                     </SelectContent>
                 </Select>
             </div>

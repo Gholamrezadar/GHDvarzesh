@@ -11,6 +11,9 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { useEffect, useState } from "react";
+import { LEAGUE_DISPLAY_NAMES, STANDING_LEAGUE_IDS } from "@/utils/varzesh3_constants";
+
+const LEAGUE_OPTIONS = Object.keys(STANDING_LEAGUE_IDS) as Array<keyof typeof LEAGUE_DISPLAY_NAMES>;
 
 
 function getBorder(i: number) {
@@ -88,10 +91,10 @@ function LeagueTable({ standings }: { standings: LeagueItemInterface[] }) {
 
 export default function LeaguesPage() {
   const [standings, setStandings] = useState<LeagueItemInterface[]>([]);
-  const [selectedLeague, setSelectedLeague] = useState<"laliga" | "prem" | "seriea">("laliga");
+  const [selectedLeague, setSelectedLeague] = useState(LEAGUE_OPTIONS[0]);
   const [loading, setLoading] = useState(true);
 
-  function handleLeagueChange(newLeague: "laliga" | "prem" | "seriea") {
+  function handleLeagueChange(newLeague: string) {
     setSelectedLeague(newLeague);
   }
 
@@ -116,9 +119,9 @@ export default function LeaguesPage() {
             <SelectValue className="focus:ring-0 focus:outline-none"></SelectValue>
           </SelectTrigger>
           <SelectContent className="outline-none focus:ring-0 focus:outline-none border-0 text-white bg-[#161a18]">
-            <SelectItem value="laliga">لالیگای اسپانیا</SelectItem>
-            <SelectItem value="prem">لیگ برتر انگلیس</SelectItem>
-            <SelectItem value="seriea">سری آ ایتالیا</SelectItem>
+            {LEAGUE_OPTIONS.map((key) => (
+              <SelectItem key={key} value={key}>{LEAGUE_DISPLAY_NAMES[key]}</SelectItem>
+            ))}
           </SelectContent>
         </Select>
       </div>

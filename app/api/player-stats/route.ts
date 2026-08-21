@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
-import { VIDEOS_URL } from '@/utils/varzesh3_constants';
+import { PLAYER_STATS_URL } from '@/utils/varzesh3_constants';
 
 export async function GET() {
-  const res = await fetch(VIDEOS_URL, {
+  const res = await fetch(PLAYER_STATS_URL, {
     headers: { 'Content-Type': 'application/json' },
   });
 

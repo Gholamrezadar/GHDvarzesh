@@ -1,38 +1,15 @@
 import { PlayerItemInterface } from "@/components/player_item";
+import { MIN_VIEWS_DEFAULT, VIDEO_TITLE_PREFIX_TO_REMOVE, VIDEO_TITLE_SUFFIX_TO_REMOVE_1, VIDEO_TITLE_SUFFIX_TO_REMOVE_2 } from "./varzesh3_constants";
 
 export async function getTopPlayersNew(league: string, mode: "Goal" | "Assist" | "GA") {
-    const url = "https://web-api.varzesh3.com/v2.0/football/leagues/3/seasons/900911/stats/players/advanced/assists";
-
-    const response = await fetch(url);
+    const response = await fetch("/api/player-stats");
     const data = await response.json();
 
     return data;
 }
 
 export async function getTopPlayers(league: string, mode: "Goal" | "Assist" | "GA") {
-    // use this later, it has goals, assists, ga, and other stats for a league in one request and is more complete
-    // https://web-api.varzesh3.com/v2.0/football/leagues/3/seasons/900911/stats/players/advanced/assists
-    // a map of league names to api urls
-    const leagueGoalMap = {
-        "laliga": "https://web-api.varzesh3.com/v1.0/football/widgets/115/top-scorers/900921",
-        "prem": "https://web-api.varzesh3.com/v1.0/football/widgets/115/top-scorers/900911",
-        "league1": "https://web-api.varzesh3.com/v1.0/football/widgets/115/top-scorers/900913",
-        "ucl": "https://web-api.varzesh3.com/v1.0/football/widgets/115/top-scorers/900825",
-        "seria": "https://web-api.varzesh3.com/v1.0/football/widgets/115/top-scorers/900817",
-        "bundesliga": "https://web-api.varzesh3.com/v1.0/football/widgets/115/top-scorers/900912",
-    };
-
-    const leagueAssistMap = {
-        "laliga": "https://web-api.varzesh3.com/v1.0/football/widgets/115/top-assisters/900921",
-        "prem": "https://web-api.varzesh3.com/v1.0/football/widgets/115/top-assisters/900911",
-        "league1": "https://web-api.varzesh3.com/v1.0/football/widgets/115/top-assisters/900913",
-        "ucl": "https://web-api.varzesh3.com/v1.0/football/widgets/115/top-assisters/900825",
-        "seriea": "https://web-api.varzesh3.com/v1.0/football/widgets/115/top-assisters/900817",
-        "bundesliga": "https://web-api.varzesh3.com/v1.0/football/widgets/115/top-scorers/900912",
-    };
-
-    const url = mode === "Goal" ? leagueGoalMap[league] : leagueAssistMap[league];
-
+    const url = `/api/top-players?league=${encodeURIComponent(league)}&mode=${encodeURIComponent(mode)}`;
     const response = await fetch(url);
     const data = await response.json();
 
@@ -46,25 +23,13 @@ export async function getLatestVideos() {
 }
 
 export async function getLatestMatches() {
-    const response = await fetch("https://web-api.varzesh3.com/v1.0/football/widgets/115/latest-matches/900921");
+    const response = await fetch("/api/latest-matches");
     const data = await response.json();
     return data;
 }
 
 export async function getLeagueStandings(league: string) {
-    const leagueStandingMap = {
-        "laliga": "https://web-api.varzesh3.com/v1.0/football/widgets/84/league/902965",
-        "prem": "https://web-api.varzesh3.com/v1.0/football/widgets/84/league/902953",
-        "seriea": "https://web-api.varzesh3.com/v1.0/football/widgets/84/league/902645",
-        "league1": "https://web-api.varzesh3.com/v1.0/football/widgets/115/top-assisters/900913",
-        "ucl": "https://web-api.varzesh3.com/v1.0/football/widgets/115/top-assisters/900825",
-        "bundesliga": "https://web-api.varzesh3.com/v1.0/football/widgets/115/top-scorers/900912",
-    }
-    const laligaUrl = "https://web-api.varzesh3.com/v1.0/football/widgets/84/league/902965";
-    const premUrl = "https://web-api.varzesh3.com/v1.0/football/widgets/84/league/902953";
-    const serieaUrl = "https://web-api.varzesh3.com/v1.0/football/widgets/84/league/902645";
-
-    const url = leagueStandingMap[league];
+    const url = `/api/league-standings?league=${encodeURIComponent(league)}`;
     const response = await fetch(url);
     const data = await response.json();
     return data;
@@ -102,26 +67,19 @@ export interface VideoItemInterface {
 }
 
 function cleanString(str: string) {
-    if (str.toLowerCase().startsWith("خلاصه بازی ")) {
+    if (str.toLowerCase().startsWith(VIDEO_TITLE_PREFIX_TO_REMOVE)) {
         str = str.slice(11);
     }
 
-    // Find the position of '(' and remove everything from there
-    // const parenIndex = str.indexOf("(");
-    // if (parenIndex !== -1) {
-    //     str = str.slice(0, parenIndex).trim();
-    // }
-
-    // remove a string from another string
-    str = str.replace("(گزارش اختصاصی)", "");
-    str = str.replace("گزارش اختصاصی", "");
+    str = str.replace(VIDEO_TITLE_SUFFIX_TO_REMOVE_1, "");
+    str = str.replace(VIDEO_TITLE_SUFFIX_TO_REMOVE_2, "");
 
     return str;
 }
 
 
 // Minimum views required for a video to be included in the list
-const MIN_VIEWS = 5000;
+const MIN_VIEWS = MIN_VIEWS_DEFAULT;
 
 export function convertToVideoItem(data: any, min_views: number): VideoItemInterface[] {
     const videos: VideoItemInterface[] = [];
@@ -179,7 +137,6 @@ export function convertToPlayerItemNew(data: any): PlayerItemInterface[] {
 }
 
 export async function getTodaysMatches() {
-    // const url = "https://web-api.varzesh3.com/v2.0/livescore/today"
     const url = "/api/today_matches"
     const response = await fetch(url);
     const data = await response.json();

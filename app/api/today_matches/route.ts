@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server';
+import { TODAYS_MATCHES_URL } from '@/utils/varzesh3_constants';
 
 export async function GET() {
-  const res = await fetch('https://web-api.varzesh3.com/v2.0/livescore/today', {
+  const res = await fetch(TODAYS_MATCHES_URL, {
     headers: { 'Content-Type': 'application/json' },
   });
 

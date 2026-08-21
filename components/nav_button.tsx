@@ -1,3 +1,5 @@
+import { TAB_BEST_PLAYERS, TAB_VIDEOS, TAB_MATCHES, TAB_LEAGUES } from "@/utils/varzesh3_constants";
+
 export default function NavButton({ changeTab, active, option1, option2, option3, menuOpen, setMenuOpen, setNavOptionActive, setNavOption1, setNavOption2, setNavOption3 }: {
     changeTab: React.Dispatch<React.SetStateAction<string>>;
     active: string;
@@ -11,73 +13,33 @@ export default function NavButton({ changeTab, active, option1, option2, option3
     setNavOption2: React.Dispatch<React.SetStateAction<string>>;
     setNavOption3: React.Dispatch<React.SetStateAction<string>>;
 }) {
+    const allTabs = [TAB_BEST_PLAYERS, TAB_VIDEOS, TAB_MATCHES, TAB_LEAGUES];
+
+    function reorderTabs(chosen: string) {
+        const others = allTabs.filter(t => t !== chosen);
+        setNavOption1(others[0]);
+        setNavOption2(others[1]);
+        setNavOption3(others[2]);
+    }
+
     function handleOption1() {
         setNavOptionActive(option1);
         changeTab(option1);
-        if(option1 === "برترین‌ها"){
-            setNavOption1("ویدیو");
-            setNavOption2("برنامه بازی‌ها");
-            setNavOption3("جدول لیگ‌ها");
-        }else if(option1 === "ویدیو"){
-            setNavOption1("برترین‌ها");
-            setNavOption2("برنامه بازی‌ها");
-            setNavOption3("جدول لیگ‌ها");
-        }else if(option1 === "برنامه بازی‌ها"){
-            setNavOption1("برترین‌ها");
-            setNavOption2("ویدیو");
-            setNavOption3("جدول لیگ‌ها");
-        }else if(option1 === "جدول لیگ‌ها"){
-            setNavOption1("برترین‌ها");
-            setNavOption2("ویدیو");
-            setNavOption3("برنامه بازی‌ها");
-        }
+        reorderTabs(option1);
         setMenuOpen(false);
     }
 
     function handleOption2() {
         setNavOptionActive(option2);
         changeTab(option2);
-        if(option2 === "ویدیو"){
-            setNavOption1("برترین‌ها");
-            setNavOption2("برنامه بازی‌ها");
-            setNavOption3("جدول لیگ‌ها");
-        }else if(option2 === "برترین‌ها"){
-            setNavOption1("ویدیو");
-            setNavOption2("برنامه بازی‌ها");
-            setNavOption3("جدول لیگ‌ها");
-        }else if(option2 === "برنامه بازی‌ها"){
-            setNavOption1("برترین‌ها");
-            setNavOption2("ویدیو");
-            setNavOption3("جدول لیگ‌ها");
-        }else if(option2 === "جدول لیگ‌ها"){
-            setNavOption1("برترین‌ها");
-            setNavOption2("ویدیو");
-            setNavOption3("برنامه بازی‌ها");
-        }
+        reorderTabs(option2);
         setMenuOpen(false);
     }
 
     function handleOption3() {
         setNavOptionActive(option3);
         changeTab(option3);
-        if(option3 === "برنامه بازی‌ها"){
-            setNavOption1("برترین‌ها");
-            setNavOption2("ویدیو");
-            setNavOption3("جدول لیگ‌ها");
-        }else if(option3 === "برترین‌ها"){
-            setNavOption1("ویدیو");
-            setNavOption2("برنامه بازی‌ها");
-            setNavOption3("جدول لیگ‌ها");
-        }else if(option3 === "ویدیو"){  
-            setNavOption1("برترین‌ها");
-            setNavOption2("برنامه بازی‌ها");
-            setNavOption3("جدول لیگ‌ها");
-        }
-        else if(option3 === "جدول لیگ‌ها"){
-            setNavOption1("برترین‌ها");
-            setNavOption2("ویدیو");
-            setNavOption3("برنامه بازی‌ها");
-        }
+        reorderTabs(option3);
         setMenuOpen(false);
     }
     return (

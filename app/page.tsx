@@ -8,6 +8,7 @@ import Spinner from "@/components/spinner";
 import VideoPage from "@/components/video_page";
 import { useEffect, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
+import { TAB_BEST_PLAYERS, TAB_VIDEOS, TAB_MATCHES, TAB_LEAGUES } from "@/utils/varzesh3_constants";
 
 // const fakeDataGoal: PlayerItemInterface[] = [
 //   {
@@ -153,7 +154,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 //   },
 // ];
 
-type NavOption = "برترین‌ها" | "ویدیو" | "برنامه بازی‌ها" | "جدول لیگ‌ها";
+type NavOption = typeof TAB_BEST_PLAYERS | typeof TAB_VIDEOS | typeof TAB_MATCHES | typeof TAB_LEAGUES;
 
 
 export default function Home() {
@@ -165,10 +166,10 @@ export default function Home() {
   // const tab = searchParams.get("tab");
 
   const [menuOpen, setMenuOpen] = useState(false);
-  const [navOptionActive, setNavOptionActive] = useState<NavOption>("برترین‌ها");
-  const [navOption1, setNavOption1] = useState<NavOption>("ویدیو");
-  const [navOption2, setNavOption2] = useState<NavOption>("برنامه بازی‌ها");
-  const [navOption3, setNavOption3] = useState<NavOption>("جدول لیگ‌ها");
+  const [navOptionActive, setNavOptionActive] = useState<NavOption>(TAB_BEST_PLAYERS);
+  const [navOption1, setNavOption1] = useState<NavOption>(TAB_VIDEOS);
+  const [navOption2, setNavOption2] = useState<NavOption>(TAB_MATCHES);
+  const [navOption3, setNavOption3] = useState<NavOption>(TAB_LEAGUES);
 
   // Sync URL -> state
   // useEffect(() => {
@@ -191,10 +192,10 @@ export default function Home() {
     <div className="flex flex-col items-center justify-center h-dvh w-dvw max-w-3xl mx-auto select-none">
 
       {/* Routing */}
-      {navOptionActive === "برترین‌ها" && <BestPlayers />}
-      {navOptionActive === "ویدیو" && <VideoPage />}
-      {navOptionActive === "برنامه بازی‌ها" && <MatchesPage />}
-      {navOptionActive === "جدول لیگ‌ها" && <LeaguesPage />}
+      {navOptionActive === TAB_BEST_PLAYERS && <BestPlayers />}
+      {navOptionActive === TAB_VIDEOS && <VideoPage />}
+      {navOptionActive === TAB_MATCHES && <MatchesPage />}
+      {navOptionActive === TAB_LEAGUES && <LeaguesPage />}
 
       {/* Nav Button */}
       <NavButton changeTab={changeTab} active={navOptionActive} option1={navOption1} option2={navOption2} option3={navOption3} menuOpen={menuOpen} setMenuOpen={setMenuOpen} setNavOption1={setNavOption1} setNavOption2={setNavOption2} setNavOption3={setNavOption3} setNavOptionActive={setNavOptionActive} />
