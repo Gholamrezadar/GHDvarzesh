@@ -61,9 +61,9 @@ export default function MatchesPage() {
   }, []);
 
   return (
-    <div className="flex flex-col justify-center items-center  w-full h-full">
+    <div className="flex flex-col justify-center items-center w-full h-full overflow-y-auto no-scrollbar">
       <h1 className="text-white text-2xl mt-8">بازی‌های امروز</h1>
-      <div className="overflow-y-auto h-full w-full no-scrollbar mt-8">
+      <div className="w-full mt-8">
 
         {/* {!loading && matches.map((match, i) => (
           <div key={i.toString() + match.league + match.date + match.time + match.host + match.guest} className="w-full px-4">

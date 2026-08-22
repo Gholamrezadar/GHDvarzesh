@@ -48,8 +48,6 @@ export function standingsUrl(league: string): string {
 
 export const LATEST_MATCHES_URL = `${VARZESH3_API_BASE}/v1.0/football/widgets/${WIDGET_TOP_SCORERS}/latest-matches/${SEASON_IDS.laliga}`;
 
-export const PLAYER_STATS_URL = `${VARZESH3_API_BASE}/v2.0/football/leagues/3/seasons/${SEASON_IDS.prem}/stats/players/advanced/assists`;
-
 export const TODAYS_MATCHES_URL = `${VARZESH3_API_BASE}/v2.0/livescore/today`;
 
 export const VIDEOS_TAG = "927733";
@@ -80,6 +78,28 @@ export const TAB_BEST_PLAYERS = "برترین‌ها";
 export const TAB_VIDEOS = "ویدیو";
 export const TAB_MATCHES = "برنامه بازی‌ها";
 export const TAB_LEAGUES = "جدول لیگ‌ها";
+
+// --- Route paths ---
+export const ROUTE_BEST_PLAYERS = "/best-players";
+export const ROUTE_VIDEOS = "/videos";
+export const ROUTE_MATCHES = "/matches";
+export const ROUTE_LEAGUES = "/leagues";
+
+export const TAB_TO_ROUTE: Record<string, string> = {
+  [TAB_BEST_PLAYERS]: ROUTE_BEST_PLAYERS,
+  [TAB_VIDEOS]: ROUTE_VIDEOS,
+  [TAB_MATCHES]: ROUTE_MATCHES,
+  [TAB_LEAGUES]: ROUTE_LEAGUES,
+};
+
+export const ROUTE_TO_TAB: Record<string, string> = {
+  [ROUTE_BEST_PLAYERS]: TAB_BEST_PLAYERS,
+  [ROUTE_VIDEOS]: TAB_VIDEOS,
+  [ROUTE_MATCHES]: TAB_MATCHES,
+  [ROUTE_LEAGUES]: TAB_LEAGUES,
+};
+
+export const ALL_TABS = [TAB_BEST_PLAYERS, TAB_VIDEOS, TAB_MATCHES, TAB_LEAGUES];
 
 // --- Video constants ---
 export const MIN_VIEWS_DEFAULT = 5000;

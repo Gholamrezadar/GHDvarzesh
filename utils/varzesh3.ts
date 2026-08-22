@@ -108,7 +108,7 @@ export function convertToPlayerItem(data: any): PlayerItemInterface[] {
         for (let player of row.players) {
             players.push({
                 name: player.name,
-                team: player.teamName,
+                team: player.team.name,
                 number: number,
                 medal: "",
                 pic: player.portrait
@@ -126,7 +126,7 @@ export function convertToPlayerItemNew(data: any): PlayerItemInterface[] {
         for (let player of row.players) {
             players.push({
                 name: player.name,
-                team: player.teamName,
+                team: player.team.name,
                 number: number,
                 medal: "",
                 pic: player.portrait

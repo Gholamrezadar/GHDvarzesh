@@ -1,73 +1,42 @@
-import { TAB_BEST_PLAYERS, TAB_VIDEOS, TAB_MATCHES, TAB_LEAGUES } from "@/utils/varzesh3_constants";
+'use client'
 
-export default function NavButton({ changeTab, active, option1, option2, option3, menuOpen, setMenuOpen, setNavOptionActive, setNavOption1, setNavOption2, setNavOption3 }: {
-    changeTab: React.Dispatch<React.SetStateAction<string>>;
-    active: string;
-    option1: string;
-    option2: string;
-    option3: string;
-    menuOpen: boolean;
-    setMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
-    setNavOptionActive: React.Dispatch<React.SetStateAction<string>>;
-    setNavOption1: React.Dispatch<React.SetStateAction<string>>;
-    setNavOption2: React.Dispatch<React.SetStateAction<string>>;
-    setNavOption3: React.Dispatch<React.SetStateAction<string>>;
-}) {
-    const allTabs = [TAB_BEST_PLAYERS, TAB_VIDEOS, TAB_MATCHES, TAB_LEAGUES];
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useState } from "react";
+import { ALL_TABS, TAB_TO_ROUTE, ROUTE_TO_TAB } from "@/utils/varzesh3_constants";
 
-    function reorderTabs(chosen: string) {
-        const others = allTabs.filter(t => t !== chosen);
-        setNavOption1(others[0]);
-        setNavOption2(others[1]);
-        setNavOption3(others[2]);
-    }
+const MENU_TRANSLATE_CLASSES = ["-translate-y-16", "-translate-y-32", "-translate-y-48"];
 
-    function handleOption1() {
-        setNavOptionActive(option1);
-        changeTab(option1);
-        reorderTabs(option1);
-        setMenuOpen(false);
-    }
+export default function NavButton() {
+    const pathname = usePathname();
+    const [menuOpen, setMenuOpen] = useState(false);
 
-    function handleOption2() {
-        setNavOptionActive(option2);
-        changeTab(option2);
-        reorderTabs(option2);
-        setMenuOpen(false);
-    }
+    const activeTab = ROUTE_TO_TAB[pathname] ?? ALL_TABS[0];
+    const otherTabs = ALL_TABS.filter(t => t !== activeTab);
 
-    function handleOption3() {
-        setNavOptionActive(option3);
-        changeTab(option3);
-        reorderTabs(option3);
-        setMenuOpen(false);
-    }
     return (
         <>
             {/* Active Nav Button */}
-            <div className="fixed right-0 bottom-0 m-12 z-20" onClick={() => { setMenuOpen(!menuOpen) }}>
+            <div className="fixed right-0 bottom-0 m-12 z-20" onClick={() => setMenuOpen(!menuOpen)}>
                 <div className="flex bg-[#7AD39E] rounded-full w-24 py-4 text-center items-center justify-center text-black text-sm big-green-glow cursor-pointer">
-                    {active}
+                    {activeTab}
                 </div>
             </div>
             {/* Other Nav Buttons */}
-            <div className={`${menuOpen ? "" : ""}`}>
-
-                <div className={`fixed right-0 bottom-0 m-12 z-10 transition-all ease-in-out ${menuOpen ? "-translate-y-16" : "-translate-y-0"}`} onClick={()=>{handleOption1()}}>
-                    <div className="flex bg-[#212B25] rounded-full w-24 py-4 text-center items-center justify-center text-[#7AD39E]/70 text-sm cursor-pointer">
-                        {option1}
+            <div>
+                {otherTabs.map((tab, i) => (
+                    <div
+                        key={tab}
+                        className={`fixed right-0 bottom-0 m-12 z-10 transition-all ease-in-out ${menuOpen ? MENU_TRANSLATE_CLASSES[i] : "-translate-y-0"}`}
+                        onClick={() => setMenuOpen(false)}
+                    >
+                        <Link href={TAB_TO_ROUTE[tab]}>
+                            <div className="flex bg-[#212B25] rounded-full w-24 py-4 text-center items-center justify-center text-[#7AD39E]/70 text-sm cursor-pointer">
+                                {tab}
+                            </div>
+                        </Link>
                     </div>
-                </div>
-                <div className={`fixed right-0 bottom-0 m-12 z-10 transition-all ease-in-out ${menuOpen ? "-translate-y-32" : "-translate-y-0"}`} onClick={()=>{handleOption2()}}>
-                    <div className="flex bg-[#212B25] rounded-full w-24 py-4 text-center items-center justify-center text-[#7AD39E]/70 text-sm cursor-pointer">
-                        {option2}
-                    </div>
-                </div>
-                <div className={`fixed right-0 bottom-0 m-12 z-10 transition-all ease-in-out ${menuOpen ? "-translate-y-48" : "-translate-y-0"}`} onClick={()=>{handleOption3()}}>
-                    <div className="flex bg-[#212B25] rounded-full w-24 py-4 text-center items-center justify-center text-[#7AD39E]/70 text-sm cursor-pointer">
-                        {option3}
-                    </div>
-                </div>
+                ))}
             </div>
         </>
     );

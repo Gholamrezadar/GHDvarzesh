@@ -44,7 +44,7 @@ export default function VideoPage() {
     }, [minViews]);
 
     return (
-        <div className="flex flex-col justify-center items-center w-full h-full max-w-xl">
+        <div className="flex flex-col justify-center items-center w-full h-full max-w-xl overflow-y-auto no-scrollbar">
             <h1 className="text-white text-2xl mt-8">خلاصه بازی‌ها</h1>
 
             {/* slider for min views */}
@@ -61,7 +61,7 @@ export default function VideoPage() {
                         <Spinner/>
                     </div>
                 )} */}
-            <div className="overflow-y-auto h-full w-full no-scrollbar mt-8">
+            <div className="w-full mt-8">
                 {loading && <Spinner />}
                 {!loading && videos.map((video, i) => (
                     <div key={i.toString() + video.title} className="w-full px-4">

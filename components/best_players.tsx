@@ -48,8 +48,8 @@ export default function BestPlayers() {
         }
     }
     return (
-        <>
-            <div className="flex mt-8 mb-4">
+        <div className="flex flex-col h-full w-full overflow-y-auto no-scrollbar mt-8 px-4">
+            <div className="flex mb-4">
                 {/* shadcn ui select */}
                 <Select dir="rtl" defaultValue="laliga" value={selectedOption} onValueChange={handleOptionChange}>
                     <SelectTrigger className="bg-transparent text-white border-none ring-0 outline-none active:ring-0 focus:ring-0 focus:outline-none text-2xl">
@@ -105,7 +105,7 @@ export default function BestPlayers() {
             </div>
 
             {/* scrollable list */}
-            <div className="overflow-y-auto h-full w-full mt-8 no-scrollbar">
+            <div className="flex-1 w-full">
                 {/* Spinner */}
                 {loading && <Spinner />}
 
@@ -125,6 +125,6 @@ export default function BestPlayers() {
             </div>
 
 
-        </>
+        </div>
     );
 }

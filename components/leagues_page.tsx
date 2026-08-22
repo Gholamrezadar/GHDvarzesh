@@ -110,7 +110,7 @@ export default function LeaguesPage() {
   }, [selectedLeague]);
 
   return (
-    <div className="flex flex-col justify-center items-center w-full h-full">
+    <div className="flex flex-col justify-center items-center w-full h-full overflow-y-auto no-scrollbar">
 
       <div className="flex mt-8 mb-4">
         {/* shadcn ui select */}
@@ -126,7 +126,7 @@ export default function LeaguesPage() {
         </Select>
       </div>
 
-      <div className="overflow-y-auto h-full w-full no-scrollbar mt-8">
+      <div className="w-full mt-8">
         {
           // !loading && standings.map((team, i) => (
           //   <div key={i.toString() + team.name} className="w-full px-4">
