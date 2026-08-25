@@ -4,6 +4,31 @@ import { Slider } from "@/components/ui/slider"
 
 import Spinner from "./spinner";
 
+function VideoCard({ video }: { video: VideoItemInterface }) {
+    const [imageLoaded, setImageLoaded] = useState(false);
+
+    return (
+        <a href={video.url} className="group relative block cursor-pointer">
+            <div className="pointer-events-none absolute -inset-3 z-0 rounded-2xl bg-[#7AD39E]/15 video-hover-surface" />
+            <div className="relative z-10">
+                <div className="relative aspect-video overflow-hidden rounded-xl bg-[#212A25] shadow-lg">
+                    {!imageLoaded && <div className="absolute inset-0 animate-pulse bg-[#2a3830]" />}
+                    <img
+                        src={video.cover}
+                        alt={video.title}
+                        onLoad={() => setImageLoaded(true)}
+                        className={`size-full object-cover transition-opacity duration-200 ${imageLoaded ? "opacity-100" : "opacity-0"}`}
+                    />
+                </div>
+                <div className="mt-2 flex min-h-8 flex-row-reverse items-center justify-center gap-2 text-center">
+                    <div className="text-md text-white">{video.title}</div>
+                    <div className="text-sm text-white/50">{video.human_readable_views}</div>
+                </div>
+            </div>
+        </a>
+    );
+}
+
 export default function VideoPage() {
     const [videos, setVideos] = useState<VideoItemInterface[]>([]);
     const [loading, setLoading] = useState(true);
@@ -64,16 +89,7 @@ export default function VideoPage() {
             <div className="mt-8 grid w-full grid-cols-1 gap-x-6 gap-y-6 px-4 sm:grid-cols-2 lg:grid-cols-3">
                 {loading && <div className="relative col-span-full h-64"><Spinner /></div>}
                 {!loading && videos.map((video, i) => (
-                    <a href={video.url} key={i.toString() + video.title} className="group relative block cursor-pointer">
-                        <div className="video-hover-surface pointer-events-none absolute -inset-3 z-0 rounded-2xl bg-[#7AD39E]/15" />
-                        <div className="relative z-10">
-                            <img src={video.cover} alt={video.title} className="w-full rounded-xl shadow-lg" />
-                            <div className="mt-2 flex flex-row-reverse items-center justify-center gap-2 text-center">
-                                <div className="text-md text-white">{video.title}</div>
-                                <div className="text-sm text-white/50">{video.human_readable_views}</div>
-                            </div>
-                        </div>
-                    </a>
+                    <VideoCard key={i.toString() + video.title} video={video} />
                 ))}
 
                 {/* Spacer */}
