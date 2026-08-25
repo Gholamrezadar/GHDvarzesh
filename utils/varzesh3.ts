@@ -147,6 +147,7 @@ export interface MatchItemInterface {
     league: string;
     date: string;
     time: string;
+    startOnUtc: string;
     host: string;
     guest: string;
 }
@@ -162,6 +163,7 @@ export function convertToMatchItem(data: any): MatchItemInterface[] {
                 league: leagueName,
                 date: date,
                 time: match.time,
+                startOnUtc: match.startOnUtc,
                 host: match.host.name,
                 guest: match.guest.name,
             })
