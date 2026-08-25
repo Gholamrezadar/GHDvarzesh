@@ -1,5 +1,6 @@
 import { convertToVideoItem, getLatestVideos, VideoItemInterface } from "@/utils/varzesh3";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { flushSync } from "react-dom";
 import { Slider } from "@/components/ui/slider"
 
 import Spinner from "./spinner";
@@ -8,7 +9,7 @@ function VideoCard({ video }: { video: VideoItemInterface }) {
     const [imageLoaded, setImageLoaded] = useState(false);
 
     return (
-        <a href={video.url} className="group relative block cursor-pointer">
+        <a href={video.url} data-video-key={video.url} className="group relative block cursor-pointer">
             <div className="pointer-events-none absolute -inset-3 z-0 rounded-2xl bg-[#7AD39E]/15 video-hover-surface" />
             <div className="relative z-10">
                 <div className="relative aspect-video overflow-hidden rounded-xl bg-[#212A25] shadow-lg">
@@ -35,6 +36,53 @@ export default function VideoPage() {
     const [loading2, setLoading2] = useState(true);
     const [minViews, setMinViews] = useState(50);
     const [data, setData] = useState<any>([]);
+    const gridRef = useRef<HTMLDivElement>(null);
+    const previousPositions = useRef<Map<string, DOMRect> | null>(null);
+
+    useLayoutEffect(() => {
+        const grid = gridRef.current;
+        const positions = previousPositions.current;
+        if (!grid || !positions) {
+            return;
+        }
+
+        const animationFrame = window.requestAnimationFrame(() => {
+            grid.querySelectorAll<HTMLElement>("[data-video-key]").forEach((element) => {
+                const key = element.dataset.videoKey;
+                if (!key) {
+                    return;
+                }
+
+                const previousPosition = positions.get(key);
+                if (!previousPosition) {
+                    element.animate([{ opacity: 0 }, { opacity: 1 }], {
+                        duration: 350,
+                        easing: "ease-out",
+                        fill: "both",
+                    });
+                    return;
+                }
+
+                const currentPosition = element.getBoundingClientRect();
+                const offsetX = previousPosition.left - currentPosition.left;
+                const offsetY = previousPosition.top - currentPosition.top;
+                if (offsetX === 0 && offsetY === 0) {
+                    return;
+                }
+
+                element.animate(
+                    [
+                        { transform: `translate(${offsetX}px, ${offsetY}px)` },
+                        { transform: "translate(0, 0)" },
+                    ],
+                    { duration: 350, easing: "ease-out" }
+                );
+            });
+        });
+
+        previousPositions.current = null;
+        return () => window.cancelAnimationFrame(animationFrame);
+    }, [videos]);
 
     useEffect(() => {
         async function getVideos() {
@@ -54,7 +102,16 @@ export default function VideoPage() {
         setLoading2(true);
         try{
             const video_list = convertToVideoItem(data, minViews * 1000);
-            setVideos(video_list);
+            const grid = gridRef.current;
+            if (grid) {
+                previousPositions.current = new Map(
+                    Array.from(grid.querySelectorAll<HTMLElement>("[data-video-key]")).map((element) => [
+                        element.dataset.videoKey ?? "",
+                        element.getBoundingClientRect(),
+                    ])
+                );
+            }
+            flushSync(() => setVideos(video_list));
         } catch (e) {
             console.log(e);
         }
@@ -66,7 +123,7 @@ export default function VideoPage() {
 
         return () => clearTimeout(timeout);
 
-    }, [minViews]);
+    }, [data, minViews]);
 
     return (
         <div className="flex w-[calc(100vw-2rem)] max-w-6xl flex-col items-center">
@@ -86,10 +143,10 @@ export default function VideoPage() {
                         <Spinner/>
                     </div>
                 )} */}
-            <div className="mt-8 grid w-full grid-cols-1 gap-x-6 gap-y-6 px-4 sm:grid-cols-2 lg:grid-cols-3">
+            <div ref={gridRef} className="mt-8 grid w-full grid-cols-1 gap-x-6 gap-y-6 px-4 sm:grid-cols-2 lg:grid-cols-3">
                 {loading && <div className="relative col-span-full h-64"><Spinner /></div>}
-                {!loading && videos.map((video, i) => (
-                    <VideoCard key={i.toString() + video.title} video={video} />
+                {!loading && videos.map((video) => (
+                    <VideoCard key={video.url} video={video} />
                 ))}
 
                 {/* Spacer */}
