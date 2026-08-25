@@ -12,7 +12,7 @@ function VideoCard({ video }: { video: VideoItemInterface }) {
             <div className="pointer-events-none absolute -inset-3 z-0 rounded-2xl bg-[#7AD39E]/15 video-hover-surface" />
             <div className="relative z-10">
                 <div className="relative aspect-video overflow-hidden rounded-xl bg-[#212A25] shadow-lg">
-                    {!imageLoaded && <div className="absolute inset-0 animate-pulse bg-[#2a3830]" />}
+                    {!imageLoaded && <div className="video-skeleton absolute inset-0" />}
                     <img
                         src={video.cover}
                         alt={video.title}

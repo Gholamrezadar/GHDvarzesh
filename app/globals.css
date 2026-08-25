@@ -97,6 +97,21 @@ html {
   transition: transform 115ms ease-out, opacity 115ms ease-out;
 }
 
+@keyframes video-skeleton-shimmer {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: -80% 0;
+  }
+}
+
+.video-skeleton {
+  background: linear-gradient(110deg, #2a3830 30%, #3e5547 45%, #2a3830 60%);
+  background-size: 220% 100%;
+  animation: video-skeleton-shimmer 1.4s ease-in-out infinite;
+}
+
 .big-green-glow {
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 0px 270px rgba(122, 211, 158, 0.8);
 }
