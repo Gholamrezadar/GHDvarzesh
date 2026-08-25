@@ -1,5 +1,5 @@
 import { convertToLeagueItem, getLeagueStandings, LeagueItemInterface } from "@/utils/varzesh3";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import LeagueSelector from "./league_selector";
 import {
   Table,
   TableBody,
@@ -115,16 +115,11 @@ export default function LeaguesPage() {
 
       <div className="flex justify-center mt-8 mb-4">
         {/* shadcn ui select */}
-        <Select dir="rtl" defaultValue="laliga" value={selectedLeague} onValueChange={handleLeagueChange}>
-          <SelectTrigger className="bg-transparent text-white border-none ring-0 outline-none active:ring-0 focus:ring-0 focus:outline-none text-2xl">
-            <SelectValue className="focus:ring-0 focus:outline-none"></SelectValue>
-          </SelectTrigger>
-          <SelectContent className="outline-none focus:ring-0 focus:outline-none border-0 text-white bg-[#161a18]">
-            {LEAGUE_OPTIONS.map((key) => (
-              <SelectItem key={key} value={key}>{LEAGUE_DISPLAY_NAMES[key]}</SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+        <LeagueSelector
+          value={selectedLeague}
+          onValueChange={handleLeagueChange}
+          options={LEAGUE_OPTIONS}
+        />
       </div>
 
       <div className="w-full mt-8">

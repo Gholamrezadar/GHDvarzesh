@@ -23,18 +23,18 @@ export default function PlayerItem({ name, team, number, medal, pic }: PlayerIte
 
     return (
         <div className="flex flex-row-reverse items-center justify-between py-2 pl-8 pr-4 text-white">
-            <div className="flex flex-row-reverse items-center justify-start gap-4">
+            <div className="flex flex-row-reverse items-center justify-start gap-3">
                 {/* image */}
-                <div className="w-16 h-16 rounded-full bg-white">
-                    <div className={`${medal === "Gold" ? "outline-[#D7C17E]" : medal === "Silver" ? "outline-gray-400" : medal === "Bronze" ? "outline-[#84654F]" : "outline-[#979899]/0"} outline-2 outline-offset-2 rounded-full`}>
-                    <img width={64} height={64} src={pic} alt={name.toString() + "profile picture"} className="w-full h-full rounded-full" />
+                <div className="size-14 shrink-0 rounded-full bg-white">
+                    <div className={`${medal === "Gold" ? "outline-[#D7C17E]" : medal === "Silver" ? "outline-gray-400" : medal === "Bronze" ? "outline-[#84654F]" : "outline-[#979899]/0"} size-full rounded-full outline-2 outline-offset-2`}>
+                    <img width={56} height={56} src={pic} alt={name.toString() + "profile picture"} className="size-full rounded-full object-cover" />
 
                     </div>
                 </div>
 
                 {/* name and team */}
                 <div className="flex flex-col justify-center items-end">
-                    <div className="text-lg">{name}</div>
+                    <div className="text-sm">{name}</div>
                     <div className="text-xs text-white/50">{team}</div>
                 </div>
             </div>
