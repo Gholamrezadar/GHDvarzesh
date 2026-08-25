@@ -21,6 +21,32 @@ body {
   scrollbar-width: none;  /* Firefox */
 }
 
+.scrollbar-on-hover {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
+.scrollbar-on-hover::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollbar-on-hover::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-on-hover::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 999px;
+}
+
+.scrollbar-on-hover:hover {
+  scrollbar-color: rgba(122, 211, 158, 0.7) transparent;
+}
+
+.scrollbar-on-hover:hover::-webkit-scrollbar-thumb {
+  background: rgba(122, 211, 158, 0.7);
+}
+
 .big-green-glow {
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 0px 270px rgba(122, 211, 158, 0.8);
 }

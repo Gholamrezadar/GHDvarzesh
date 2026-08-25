@@ -48,7 +48,7 @@ export default function BestPlayers() {
         }
     }
     return (
-        <div className="flex flex-col h-full w-full overflow-y-auto no-scrollbar mt-8 px-4">
+        <div className="mt-8 flex w-full flex-col px-4">
             <div className="flex justify-center mb-4">
                 {/* shadcn ui select */}
                 <Select dir="rtl" defaultValue="laliga" value={selectedOption} onValueChange={handleOptionChange}>
