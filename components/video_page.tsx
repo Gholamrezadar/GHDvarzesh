@@ -1,7 +1,6 @@
 import { convertToVideoItem, getLatestVideos, VideoItemInterface } from "@/utils/varzesh3";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { flushSync } from "react-dom";
-import { Slider } from "@/components/ui/slider"
 
 import Spinner from "./spinner";
 
@@ -70,6 +69,8 @@ export default function VideoPage() {
                     return;
                 }
 
+                // Freeze any interrupted move at its current visual position before restarting.
+                element.getAnimations().forEach((animation) => animation.cancel());
                 element.animate(
                     [
                         { transform: `translate(${offsetX}px, ${offsetY}px)` },
@@ -129,13 +130,27 @@ export default function VideoPage() {
         <div className="flex w-[calc(100vw-2rem)] max-w-6xl flex-col items-center">
             <h1 className="text-white text-2xl mt-8">خلاصه بازی‌ها</h1>
 
-            {/* slider for min views */}
-            <div dir="rtl" className="mt-8 flex w-[80%] max-w-xl items-center gap-4">
-                <div className="flex shrink-0 items-center gap-2 text-sm">
-                    <span className="text-white/55">حداقل بازدید</span>
-                    <span className="rounded-full bg-[#7AD39E]/10 px-2.5 py-1 font-semibold text-[#9fe0b5]">{minViews}k</span>
+            <div dir="rtl" className="mt-8 flex w-[80%] max-w-xl items-center justify-center gap-3">
+                <div className="shrink-0 text-sm text-white/55">حداقل بازدید</div>
+                <div className="flex flex-wrap justify-center gap-2">
+                    {[
+                        { label: "همه", value: 0 },
+                        { label: "50k", value: 50 },
+                        { label: "100k", value: 100 },
+                        { label: "150k", value: 150 },
+                        { label: "200k", value: 200 },
+                    ].map((option) => (
+                        <button
+                            key={option.value}
+                            type="button"
+                            onClick={() => setMinViews(option.value)}
+                            aria-pressed={minViews === option.value}
+                            className={`cursor-pointer rounded-full px-3 py-1.5 text-xs transition-colors ${minViews === option.value ? "bg-[#7AD39E] text-[#121416] hover:bg-[#91e0ad]" : "bg-[#212A25] text-[#7AD39E]/75 hover:bg-[#2a3830]"}`}
+                        >
+                            {option.label}
+                        </button>
+                    ))}
                 </div>
-                <Slider defaultValue={[50]} min={0} max={150} step={10} onValueChange={(value) => setMinViews(value[0])} className="flex-1 cursor-pointer" />
             </div>
 
                 {/* {loading2 && (
@@ -143,8 +158,13 @@ export default function VideoPage() {
                         <Spinner/>
                     </div>
                 )} */}
-            <div ref={gridRef} className="mt-8 grid w-full grid-cols-1 gap-x-6 gap-y-6 px-4 sm:grid-cols-2 lg:grid-cols-3">
+            <div ref={gridRef} dir="rtl" className="mt-8 grid w-full grid-cols-1 gap-x-6 gap-y-6 px-4 sm:grid-cols-2 lg:grid-cols-3">
                 {loading && <div className="relative col-span-full h-64"><Spinner /></div>}
+                {!loading && videos.length === 0 && (
+                    <div className="col-span-full py-16 text-center text-sm text-white/45">
+                        ویدیویی با این میزان بازدید پیدا نشد
+                    </div>
+                )}
                 {!loading && videos.map((video) => (
                     <VideoCard key={video.url} video={video} />
                 ))}
