@@ -1,16 +1,22 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Vazirmatn} from "next/font/google";
 import "./globals.css";
-import Head from "next/head";
 
 const vazirmatn = Vazirmatn({
   variable: "--font-vazirmatn",
-  subsets: ["latin"],
+  subsets: ["arabic", "latin"],
 });
 
 export const metadata: Metadata = {
   title: "GHD Varzesh3 Client",
   description: "A modern client for the Varzesh3 football data.",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 };
 
 export default function RootLayout({
@@ -19,10 +25,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-      </Head>
+    <html lang="fa">
       <body
         className={`${vazirmatn.variable} antialiased`}
       >

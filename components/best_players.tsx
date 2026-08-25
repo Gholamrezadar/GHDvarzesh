@@ -49,7 +49,7 @@ export default function BestPlayers() {
     }
     return (
         <div className="flex flex-col h-full w-full overflow-y-auto no-scrollbar mt-8 px-4">
-            <div className="flex mb-4">
+            <div className="flex justify-center mb-4">
                 {/* shadcn ui select */}
                 <Select dir="rtl" defaultValue="laliga" value={selectedOption} onValueChange={handleOptionChange}>
                     <SelectTrigger className="bg-transparent text-white border-none ring-0 outline-none active:ring-0 focus:ring-0 focus:outline-none text-2xl">
@@ -67,7 +67,7 @@ export default function BestPlayers() {
             </div>
 
             {/* Pills: Goal/Assist mode selection */}
-            <div className="flex flex-row-reverse gap-3">
+            <div className="flex flex-row-reverse justify-center gap-3">
                 {/* Goal mode */}
                 {mode === "Goal" ?
                     (

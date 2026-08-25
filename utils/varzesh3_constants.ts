@@ -6,17 +6,16 @@
 export const VARZESH3_API_BASE = "https://web-api.varzesh3.com";
 
 // League keys used throughout the app
-export type LeagueKey = "laliga" | "prem" | "league1" | "ucl" | "seria" | "seriea" | "bundesliga";
+export type LeagueKey = "laliga" | "prem" | "league1" | "ucl" | "seriea" | "bundesliga";
 
 // Season IDs
 export const SEASON_IDS: Record<LeagueKey, string> = {
-  laliga: "900921",
-  prem: "900911",
-  league1: "906386",
-  ucl: "900825",
-  seria: "906385",
-  seriea: "906385",
-  bundesliga: "906406",
+  laliga: "902054",
+  prem: "902037",
+  league1: "902039",
+  ucl: "900935",
+  seriea: "902038",
+  bundesliga: "902055",
 };
 
 // Widget IDs

@@ -44,7 +44,7 @@ export default function VideoPage() {
     }, [minViews]);
 
     return (
-        <div className="flex flex-col justify-center items-center w-full h-full max-w-xl overflow-y-auto no-scrollbar">
+        <div className="flex flex-col items-center w-full h-full max-w-xl overflow-y-auto no-scrollbar">
             <h1 className="text-white text-2xl mt-8">خلاصه بازی‌ها</h1>
 
             {/* slider for min views */}

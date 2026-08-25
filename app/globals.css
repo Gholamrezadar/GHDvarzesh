@@ -152,7 +152,7 @@ body {
   right: 0;
   width: 100%;
   height: 50%;
-  pointer-event: none;
+  pointer-events: none;
 }
 
 .progressive-blur-container > .blur-filter {
@@ -196,7 +196,7 @@ body {
 
 .progressive-blur-container > .blur-filter:nth-child(7) {
   z-index: 10;
-  background-filter: blur(16px);
+  backdrop-filter: blur(16px);
   mask: linear-gradient(rgba(0, 0, 0, 0) 70%, rgba(0, 0, 0, 1) 100%)
 }
 

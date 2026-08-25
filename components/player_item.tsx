@@ -41,8 +41,7 @@ export default function PlayerItem({ name, team, number, medal, pic }: PlayerIte
 
             {/* score */}
             <div className="text-2xl px-4 font-light">
-                <div className={`${medal === "Gold" ? "text-[#D7C17E]" : medal === "Silver" ? "text-gray-400" : medal === "Bronze" ? "text-[#84654F]" : "text-[#979899]/50"}
-                    }`}>{convertToPersianDigits(number)}</div>
+                <div className={`${medal === "Gold" ? "text-[#D7C17E]" : medal === "Silver" ? "text-gray-400" : medal === "Bronze" ? "text-[#84654F]" : "text-[#979899]/50"}`}>{convertToPersianDigits(number)}</div>
             </div>
 
         </div>

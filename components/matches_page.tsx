@@ -3,13 +3,12 @@ import { useEffect, useState } from "react";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import Spinner from "./spinner";
 
 function MatchesTable({ matches }: { matches: MatchItemInterface[] }) {
   return (
@@ -61,15 +60,11 @@ export default function MatchesPage() {
   }, []);
 
   return (
-    <div className="flex flex-col justify-center items-center w-full h-full overflow-y-auto no-scrollbar">
+    <div className="flex flex-col items-center w-full h-full overflow-y-auto no-scrollbar">
+      {loading && <Spinner />}
       <h1 className="text-white text-2xl mt-8">بازی‌های امروز</h1>
       <div className="w-full mt-8">
 
-        {/* {!loading && matches.map((match, i) => (
-          <div key={i.toString() + match.league + match.date + match.time + match.host + match.guest} className="w-full px-4">
-            <div className="text-white text-2xl">#{match.league} | {match.date} | {match.time} | {match.host} | {match.guest}</div>
-          </div>
-        ))} */}
         {!loading && <MatchesTable matches={matches} />}
 
         {/* Spacer */}

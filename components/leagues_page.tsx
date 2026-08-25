@@ -3,13 +3,12 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import Spinner from "./spinner";
 import { useEffect, useState } from "react";
 import { LEAGUE_DISPLAY_NAMES, STANDING_LEAGUE_IDS } from "@/utils/varzesh3_constants";
 
@@ -110,9 +109,11 @@ export default function LeaguesPage() {
   }, [selectedLeague]);
 
   return (
-    <div className="flex flex-col justify-center items-center w-full h-full overflow-y-auto no-scrollbar">
+    <div className="flex flex-col items-center w-full h-full overflow-y-auto no-scrollbar">
 
-      <div className="flex mt-8 mb-4">
+      {loading && <Spinner />}
+
+      <div className="flex justify-center mt-8 mb-4">
         {/* shadcn ui select */}
         <Select dir="rtl" defaultValue="laliga" value={selectedLeague} onValueChange={handleLeagueChange}>
           <SelectTrigger className="bg-transparent text-white border-none ring-0 outline-none active:ring-0 focus:ring-0 focus:outline-none text-2xl">
@@ -127,16 +128,7 @@ export default function LeaguesPage() {
       </div>
 
       <div className="w-full mt-8">
-        {
-          // !loading && standings.map((team, i) => (
-          //   <div key={i.toString() + team.name} className="w-full px-4">
-          //     <div>#{team.rank} | {team.name} | {team.played} | {team.goalDiff} | {team.points}</div>
-          //   </div>
-          // ))
-        }
-        {
-          !loading && <LeagueTable standings={standings} />
-        }
+        {!loading && <LeagueTable standings={standings} />}
         {/* Spacer */}
         <div className="w-full h-36"></div>
 
