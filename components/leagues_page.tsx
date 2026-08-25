@@ -136,7 +136,11 @@ export default function LeaguesPage() {
   return (
     <div className="flex w-full flex-col items-center">
 
-      {loading && <Spinner />}
+      {loading && (
+        <div className="pointer-events-none fixed inset-0 z-30 flex items-center justify-center">
+          <Spinner />
+        </div>
+      )}
 
       <div className="flex justify-center mt-8 mb-4">
         {/* shadcn ui select */}

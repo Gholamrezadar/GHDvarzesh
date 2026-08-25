@@ -1,6 +1,5 @@
 import { convertToVideoItem, getLatestVideos, VideoItemInterface } from "@/utils/varzesh3";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { flushSync } from "react-dom";
 
 import Spinner from "./spinner";
 
@@ -32,7 +31,6 @@ function VideoCard({ video }: { video: VideoItemInterface }) {
 export default function VideoPage() {
     const [videos, setVideos] = useState<VideoItemInterface[]>([]);
     const [loading, setLoading] = useState(true);
-    const [loading2, setLoading2] = useState(true);
     const [minViews, setMinViews] = useState(50);
     const [data, setData] = useState<any>([]);
     const gridRef = useRef<HTMLDivElement>(null);
@@ -88,19 +86,16 @@ export default function VideoPage() {
     useEffect(() => {
         async function getVideos() {
             setLoading(true);
-            setLoading2(true);
             const tempData = await getLatestVideos();
             setData(tempData);
             const video_list = convertToVideoItem(tempData, minViews * 1000);
             setVideos(video_list);
             setLoading(false);
-            setLoading2(false);
         }
         getVideos();
     }, []);
 
     useEffect(() => {
-        setLoading2(true);
         try{
             const video_list = convertToVideoItem(data, minViews * 1000);
             const grid = gridRef.current;
@@ -112,17 +107,10 @@ export default function VideoPage() {
                     ])
                 );
             }
-            flushSync(() => setVideos(video_list));
+            setVideos(video_list);
         } catch (e) {
             console.log(e);
         }
-
-        // set loading to false after 300ms
-        let timeout = setTimeout(() => {
-            setLoading2(false);
-        }, 400);
-
-        return () => clearTimeout(timeout);
 
     }, [data, minViews]);
 
@@ -153,11 +141,6 @@ export default function VideoPage() {
                 </div>
             </div>
 
-                {/* {loading2 && (
-                    <div className="w-full h-dvh bg-red-600 flex flex-col items-center justify-center">
-                        <Spinner/>
-                    </div>
-                )} */}
             <div ref={gridRef} dir="rtl" className="mt-8 grid w-full grid-cols-1 gap-x-6 gap-y-6 px-4 sm:grid-cols-2 lg:grid-cols-3">
                 {loading && <div className="relative col-span-full h-64"><Spinner /></div>}
                 {!loading && videos.length === 0 && (
