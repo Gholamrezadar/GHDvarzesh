@@ -29,11 +29,11 @@ function getBorder(i: number) {
 
 function getRowBackground(i: number) {
   if (i === 0) {
-    return "bg-[#D7C17E]/10 hover:bg-[#D7C17E]/15";
+    return "bg-[#252521] hover:bg-[#2f2e26]";
   } else if (i === 1) {
-    return "bg-gray-400/10 hover:bg-gray-400/15";
+    return "bg-[#1f2225] hover:bg-[#26292d]";
   } else if (i === 2) {
-    return "bg-[oklab(0.51_0.03_0.04_/_0.17)] hover:bg-[oklab(0.51_0.03_0.04_/_0.25)]";
+    return "bg-[#24211f] hover:bg-[#2c2723]";
   }
 
   return "bg-[#1b241f] hover:bg-[#243229]";
