@@ -9,6 +9,7 @@ export default function BestPlayers() {
     const [playersList, setPlayersList] = useState<PlayerItemInterface[]>([]);
     const [selectedOption, setSelectedOption] = useState<string>("laliga");
     const [loading, setLoading] = useState(true);
+    const playersCache = useRef(new Map<string, PlayerItemInterface[]>());
     const playerListRef = useRef<HTMLDivElement>(null);
     const previousPlayerPositions = useRef<Map<string, DOMRect> | null>(null);
 
@@ -61,7 +62,6 @@ export default function BestPlayers() {
         if (option === selectedOption) {
             return;
         }
-        setLoading(true);
         setSelectedOption(option);
     }
 
@@ -69,14 +69,14 @@ export default function BestPlayers() {
         if (mode === newMode) {
             return;
         }
-        setLoading(true);
         setMode(newMode);
     }
 
     useEffect(() => {
-        async function getPlayers() {
-            const data = await getTopPlayers(selectedOption, mode);
-            const players = convertToPlayerItem(data);
+        let cancelled = false;
+        const cacheKey = `${selectedOption}:${mode}`;
+
+        function updatePlayers(players: PlayerItemInterface[]) {
             const list = playerListRef.current;
             if (list) {
                 previousPlayerPositions.current = new Map(
@@ -87,9 +87,31 @@ export default function BestPlayers() {
                 );
             }
             setPlayersList(players);
+        }
+
+        async function getPlayers() {
+            const cachedPlayers = playersCache.current.get(cacheKey);
+            if (cachedPlayers) {
+                updatePlayers(cachedPlayers);
+                setLoading(false);
+                return;
+            }
+
+            const data = await getTopPlayers(selectedOption, mode);
+            if (cancelled) {
+                playersCache.current.set(cacheKey, convertToPlayerItem(data));
+                return;
+            }
+            const players = convertToPlayerItem(data);
+            playersCache.current.set(cacheKey, players);
+            updatePlayers(players);
             setLoading(false);
         }
         getPlayers();
+
+        return () => {
+            cancelled = true;
+        };
     }, [selectedOption, mode]);
 
     function getMedal(i: number): "" | "Gold" | "Silver" | "Bronze" {
