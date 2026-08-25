@@ -73,10 +73,10 @@ export const MODE_LABELS: Record<string, string> = {
 };
 
 // --- Tab names ---
-export const TAB_BEST_PLAYERS = "برترین‌ها";
+export const TAB_BEST_PLAYERS = "‌بازیکن‌ها";
 export const TAB_VIDEOS = "ویدیو";
-export const TAB_MATCHES = "برنامه بازی‌ها";
-export const TAB_LEAGUES = "جدول لیگ‌ها";
+export const TAB_MATCHES = "بازی‌ها";
+export const TAB_LEAGUES = "لیگ‌ها";
 
 // --- Route paths ---
 export const ROUTE_BEST_PLAYERS = "/best-players";

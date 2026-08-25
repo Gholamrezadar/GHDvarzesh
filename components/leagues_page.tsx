@@ -26,31 +26,56 @@ function getBorder(i: number) {
     return "border-none"
   }
 }
+
+function getRowBackground(i: number) {
+  if (i === 0) {
+    return "bg-[#D7C17E]/10 hover:bg-[#D7C17E]/15";
+  } else if (i === 1) {
+    return "bg-gray-400/10 hover:bg-gray-400/15";
+  } else if (i === 2) {
+    return "bg-[oklab(0.51_0.03_0.04_/_0.17)] hover:bg-[oklab(0.51_0.03_0.04_/_0.25)]";
+  }
+
+  return "bg-[#1b241f] hover:bg-[#243229]";
+}
+
+function getRankColor(i: number) {
+  if (i === 0) {
+    return "text-[#D7C17E]";
+  } else if (i === 1) {
+    return "text-gray-400";
+  } else if (i === 2) {
+    return "text-[#84654F]";
+  }
+
+  return "text-white/70";
+}
+
 function LeagueTable({ standings }: { standings: LeagueItemInterface[] }) {
   return (
     <>
       <div className="flex flex-col justify-center items-center">
 
-        <Table dir="rtl" className="max-w-xl mx-auto">
+        <Table dir="rtl" className="mx-auto max-w-xl border-separate border-spacing-y-1 px-3">
           <TableHeader>
-            <TableRow className="border-b-1 border-white/20">
-              <TableHead className="text-right text-white/40">#</TableHead>
-              <TableHead className="text-right text-white/40">تیم</TableHead>
-              <TableHead className="text-right text-white/40">بازی</TableHead>
-              <TableHead className="text-right text-white/40">تفاضل</TableHead>
-              <TableHead className="text-right text-white/40">امتیاز</TableHead>
+            <TableRow className="border-0 hover:bg-transparent">
+              <TableHead className="px-3 pb-1 text-right text-xs font-normal text-white/35">#</TableHead>
+              <TableHead className="px-3 pb-1 text-right text-xs font-normal text-white/35">تیم</TableHead>
+              <TableHead className="px-3 pb-1 text-right text-xs font-normal text-white/35">بازی</TableHead>
+              <TableHead className="px-3 pb-1 text-right text-xs font-normal text-white/35">تفاضل</TableHead>
+              <TableHead className="px-3 pb-1 text-right text-xs font-normal text-white/35">امتیاز</TableHead>
             </TableRow>
           </TableHeader>
 
           <TableBody>
             {
               standings.map((team, i) => (
-                <TableRow className="border-b-1 border-white/20" key={i.toString() + team.name}>
-                  <TableCell className={`${getBorder(i)}`}>{team.rank}</TableCell>
-                  <TableCell>{team.name}</TableCell>
-                  <TableCell className="text-white/40">{team.played}</TableCell>
-                  <TableCell className="text-white/40">{team.goalDiff}</TableCell>
-                  <TableCell className="text-white">{team.points}</TableCell>
+                <TableRow className={`border-0 transition-colors ${getRowBackground(i)}`} key={i.toString() + team.name}>
+                  <TableCell className={`border-0 px-3 py-2.5 font-bold first:rounded-r-xl ${getBorder(i)} ${getRankColor(i)}`}>{team.rank}</TableCell>
+                  <TableCell className="border-0 px-3 py-2.5 font-medium text-white">{team.name}</TableCell>
+                  <TableCell className="border-0 px-3 py-2.5 text-sm text-white/50">{team.played}</TableCell>
+                  <TableCell className="border-0 px-3 py-2.5 text-sm text-white/50">{team.goalDiff}</TableCell>
+                  <TableCell className="border-0 px-3 py-2.5 font-semibold text-white/75 last:rounded-l-xl">{team.points}</TableCell>
                 </TableRow>
               ))
             }
