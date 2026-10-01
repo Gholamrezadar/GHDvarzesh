@@ -10,6 +10,9 @@ const vazirmatn = Vazirmatn({
 export const metadata: Metadata = {
   title: "GHD Varzesh3 Client",
   description: "A modern client for the Varzesh3 football data.",
+  icons: {
+    icon: "/favicon.png",
+  },
 };
 
 export const viewport: Viewport = {
